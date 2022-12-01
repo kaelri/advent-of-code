@@ -1,0 +1,6 @@
+{
+	"name": "advent-of-code-2022",
+	"scripts": {
+		"day-1": "node ./day1/solution.js"
+	}
+}
