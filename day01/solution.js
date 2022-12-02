@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 // Get the raw input from https://adventofcode.com/2022/day/1
-const input = fs.readFileSync('./day1/input.txt', { encoding: 'utf8', flag: 'r' } )
+const input = fs.readFileSync('./day01/input.txt', { encoding: 'utf8', flag: 'r' } )
 // Kind of want to replace this with an async fetch request straight from AoC, but #lazy.
 
 const elves = input
