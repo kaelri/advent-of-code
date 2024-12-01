@@ -1,3 +1,6 @@
 {
-	"name": "advent-of-code-2023"
+	"name": "advent-of-code-2024",
+	"scripts": {
+		"day01": "node day01/solution.js"
+	}
 }

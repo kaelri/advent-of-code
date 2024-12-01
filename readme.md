@@ -1,1 +1,1 @@
-My solutions for [Advent of Code 2023](https://adventofcode.com/).
+My solutions for [Advent of Code 2024](https://adventofcode.com/).
