@@ -1,6 +1,6 @@
 {
 	"name": "advent-of-code-2024",
 	"scripts": {
-		"test": "node test.js"
+		"solve": "node scripts/solve.js"
 	}
 }

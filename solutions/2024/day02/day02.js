@@ -1,4 +1,4 @@
-const Day = require('../../classes/day');
+const Day = require('../../../classes/day');
 
 class Day02 extends Day {
 
