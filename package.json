@@ -1,8 +1,5 @@
 {
 	"name": "advent-of-code-2024",
-	"dependencies": {
-		"yargs": "github:yargs/yargs"
-	},
 	"scripts": {
 		"test": "node test.js"
 	}

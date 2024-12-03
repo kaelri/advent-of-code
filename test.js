@@ -1,6 +1,10 @@
-const argv = require('yargs/yargs')(process.argv.slice(2)).argv;
+let dayNumber = process.argv.find( arg => arg.match(/^--day=\d+$/g ) );
 
-if ( argv.day && typeof argv.day === 'string' && argv.day.length === 2 ) {
-	const solution = require( process.cwd() + `/day${argv.day}/solution` );
-	solution.init();
+if ( !dayNumber ) {
+	console.error('Please provide a day number using the --day flag, e.g. `npm run test -- --day=1`.');
+	return;
 }
+
+const id  = 'day' + dayNumber.replace('--day=', '').trim().padStart(2, '0');
+const day = require( process.cwd() + `/days/${id}/${id}` );
+( new day ).init();

@@ -9,5 +9,5 @@ npm install
 Run (e.g. Day 1):
 
 ```shell
-npm run test -- --day=01
+npm run test -- --day=1
 ```
