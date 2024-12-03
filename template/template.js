@@ -7,7 +7,7 @@ class DayNN extends Day {
     init() {
 
         // Get the raw input from https://adventofcode.com/2024/day/N
-        const input = this.getInput();
+        let input = this.getInput();
         
         // PART 1
     

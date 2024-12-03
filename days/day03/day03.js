@@ -7,7 +7,7 @@ class Day03 extends Day {
     init() {
 
         // Get the raw input from https://adventofcode.com/2024/day/3
-        const input = this.getInput();
+        let input = this.getInput();
     
         // PART 1
     
@@ -18,14 +18,14 @@ class Day03 extends Day {
         // PART 2
     
         // Add an explicit "do()" statement at the start of the input to make parsing easier.
-        let inputExplicit = 'do()' + input;
+        input = 'do()' + input;
     
         // Break the input into chunks that start with the "do()" or "don't()" statements, ending before the next instance of same (or the end of the input, `$`).
-        let groups = inputExplicit.match(/((do|don't)\(\).*?)(?=((do|don't)\(\)|$))/gs); // Good gracious.
+        let groups = input.match(/((do|don't)\(\).*?)(?=((do|don't)\(\)|$))/gs); // Good gracious.
     
-        let enabled = groups.filter( group => group.startsWith('do(') ).join('');
+        let inputEnabled = groups.filter( group => group.startsWith('do()') ).join('');
     
-        sum = this.findMultipliers(enabled);
+        sum = this.findMultipliers(inputEnabled);
     
         console.info(`Part 2: ${sum}`); // 100189366
     

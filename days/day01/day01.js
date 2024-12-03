@@ -7,9 +7,8 @@ class Day01 extends Day {
     init() {
 
         // Get the raw input from https://adventofcode.com/2024/day/1
-        const input = this.getInput()
-        .split("\n")
-        .filter( line => line.length > 0 );
+        let input = this.getInput();
+        input = this.getLines(input);
 
         // PART 1
 
