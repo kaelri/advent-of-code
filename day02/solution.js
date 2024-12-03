@@ -2,7 +2,7 @@ const fs = require('fs');
 
 function init() {
 
-    // Get the raw input from https://adventofcode.com/2024/day/1
+    // Get the raw input from https://adventofcode.com/2024/day/2
     const input = fs.readFileSync('./day02/input.txt', { encoding: 'utf8', flag: 'r' } )
     .split("\n")
     .filter( line => line.length > 0 );
@@ -97,4 +97,6 @@ function isSafe(report) {
 
 }
 
-init();
+module.exports = {
+	init: init
+}
