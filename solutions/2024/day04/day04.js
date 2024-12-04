@@ -41,7 +41,7 @@ class Day04 extends Day {
 
                 loopDirections:
                 for (let d = 0; d < Object.keys(this.directions).length; d++) {
-                    const direction = this.directions[ Object.keys(this.directions)[d]];
+                    const direction = this.directions[ Object.keys(this.directions)[d] ];
 
                     let isXMAS = this.findWord( x, y, direction, 'MAS'.split('') );
 
