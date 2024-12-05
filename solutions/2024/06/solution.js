@@ -1,12 +1,10 @@
-const Day = require('../../../classes/day');
+const SolutionBase = require('../../../classes/solution-base');
 
-class Day05 extends Day {
-
-    path = __dirname;
+class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/5
+        // Get the raw input from https://adventofcode.com/2024/day/6
         let input = this.getInput();
         
         // PART 1
@@ -21,4 +19,4 @@ class Day05 extends Day {
     
 }
 
-module.exports = Day05;
+module.exports = Solution;
