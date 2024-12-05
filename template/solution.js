@@ -1,8 +1,6 @@
-const Day = require('../../../classes/day');
+const SolutionBase = require('../../../classes/solution-base');
 
-class DayNN extends Day {
-
-    path = __dirname;
+class Solution extends SolutionBase {
 
     init() {
 
@@ -21,4 +19,4 @@ class DayNN extends Day {
     
 }
 
-module.exports = DayNN;
+module.exports = Solution;

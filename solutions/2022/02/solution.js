@@ -1,8 +1,6 @@
-const Day = require('../../../classes/day');
+const SolutionBase = require('../../../classes/solution-base');
 
-class Day02 extends Day {
-
-    path = __dirname;
+class Solution extends SolutionBase {
 
     // Define vocabulary terms as arbitrary constants. Basically just makes the code more readable.
     rock     = 'rock';
@@ -134,4 +132,4 @@ class Day02 extends Day {
 
 }
 
-module.exports = Day02;
+module.exports = Solution;
