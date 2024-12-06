@@ -29,14 +29,7 @@ class Solution extends SolutionBase {
             for (let x = 0; x < row.length; x++) {
                 const value = row[x];
 
-                let position = {
-                    x:       x,
-                    y:       y,
-                    value:   value,
-                    initial: value,
-                }
-
-                this.grid.set( `${x},${y}`, position );
+                this.grid.set( `${x},${y}`, value );
 
                 if ( value === '^' ) this.start = { x: x, y: y, d: 0 };
 
@@ -46,19 +39,25 @@ class Solution extends SolutionBase {
 
         let result = this.moveGuard();
 
-        console.info(`Part 1: ${result.positions.length}`); // 5177
+        console.info(`Part 1: ${result.positions.size}`, performance.now() ); // 5177
     
         // PART 2
         let numNewObstacles = 0;
 
-        let emptyPositions = result.positions.map( positionID => this.grid.get(positionID) ).filter( position => position.value === '.' );
+        let emptyPositions = [ ...result.positions ].map( positionID => {
+            return {
+                id:    positionID,
+                value: this.grid.get(positionID)
+            }
+        }).filter( position => position.value === '.' );
 
         for (let i = 0; i < emptyPositions.length; i++) {
             const emptyPosition = emptyPositions[i];
 
-            if ( (i+1) % 100 === 0 ) console.info(`    ${i+1} / ${emptyPositions.length}…`);
+            if ( (i+1) % 1000 === 0 ) console.info(`    ${i+1} / ${emptyPositions.length}…`, performance.now() );
 
-            emptyPosition.value = '#';
+            let initialValue = emptyPosition.value;
+            this.grid.set( emptyPosition.id, '#' );
 
             let result = this.moveGuard();
 
@@ -66,19 +65,19 @@ class Solution extends SolutionBase {
                 numNewObstacles++;
             }
 
-            emptyPosition.value = emptyPosition.initial;
+            this.grid.set( emptyPosition.id, initialValue );
             
         }
     
-        console.info(`Part 2: ${numNewObstacles}`); // 1686
+        console.info(`Part 2: ${numNewObstacles}`, performance.now() ); // 1686
     
     }
 
     moveGuard() {
 
         let result = {
-            history:   [],
-            positions: [],
+            history:   new Set(),
+            positions: new Set(),
             isLoop:    false,
         };
 
@@ -94,18 +93,16 @@ class Solution extends SolutionBase {
             // If the guard has been in the same position and direction before, we’re in a loop.
             let historyID = `${guard.x},${guard.y},${guard.d}`;
 
-            if ( result.history.includes(historyID) ) {
+            if ( result.history.has(historyID) ) {
                 result.isLoop = true;
                 return result;
             }
 
-            result.history.push( historyID );
+            result.history.add( historyID );
 
             // Mark the current position as visited.
             let positionID = `${guard.x},${guard.y}`;
-            if ( !result.positions.includes(positionID) ) {
-                result.positions.push(positionID);
-            }
+            result.positions.add( positionID );
 
             // Check the next position in the guard’s current direction.
             loopGuardDirections:
@@ -124,7 +121,7 @@ class Solution extends SolutionBase {
                 }
     
                 // If the next position is an obstacle, rotate to the next direction and try again. (This could hypothetically create an infinite loop if the guard is boxed in.)
-                if ( nextPosition.value === '#' ) {
+                if ( nextPosition === '#' ) {
                     guard.d = ( guard.d + 1 ) % this.directions.length;
                     continue loopGuardDirections;
                 }
