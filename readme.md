@@ -11,3 +11,5 @@ The runner defaults to the most recent year (`2024`). To run a previous year’s
 ```shell
 npm run solve 2022-3
 ```
+
+Included on [Bogdanp/awesome-advent-of-code](https://github.com/Bogdanp/awesome-advent-of-code) since 2022!
