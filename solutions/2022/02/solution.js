@@ -39,10 +39,7 @@ class Solution extends SolutionBase {
     
     init() {
 
-        // Get the raw input from https://adventofcode.com/2022/day/2
-        let input = this.getInput();
-
-        const forwardScore = input
+        const forwardScore = this.input
             .split("\n").map( line => {
         
                 if ( !line.length ) return 0
@@ -61,7 +58,7 @@ class Solution extends SolutionBase {
         
         console.info( 'Part 1: ' + forwardScore ) // 13005
         
-        const backwardScore = input
+        const backwardScore = this.input
             .split("\n").map( line => {
         
                 if ( !line.length ) return 0

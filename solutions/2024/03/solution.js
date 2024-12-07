@@ -4,22 +4,19 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/3
-        let input = this.getInput();
-    
         // PART 1
     
-        let sum = this.findMultipliers(input);
+        let sum = this.findMultipliers(this.input);
     
         console.info(`Part 1: ${sum}`); // 155955228
     
         // PART 2
     
         // Add an explicit "do()" statement at the start of the input to make parsing easier.
-        input = 'do()' + input;
+        this.input = 'do()' + this.input;
     
         // Break the input into chunks that start with the "do()" or "don't()" statements, ending before the next instance of same (or the end of the input, `$`).
-        let groups = input.match(/((do|don't)\(\).*?)(?=((do|don't)\(\)|$))/gs); // Good gracious.
+        let groups = this.input.match(/((do|don't)\(\).*?)(?=((do|don't)\(\)|$))/gs); // Good gracious.
     
         let inputEnabled = groups.filter( group => group.startsWith('do()') ).join('');
     

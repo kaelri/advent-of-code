@@ -4,11 +4,7 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2015/day/2
-        let input = this.getInput();
-        input = this.getLines(input);
-
-        let presents = input.map( line => {
+        let presents = this.getLines(this.input).map( line => {
 
             let dimensions = line.split('x').map( x => parseInt(x) );
             let [ l, w, h ] = dimensions;
@@ -36,7 +32,7 @@ class Solution extends SolutionBase {
         console.info(`Part 1: ${wrappingTotal}`); // 1606483
     
         // PART 2
-        console.info(`Part 2: ${ribbonTotal}`); // 
+        console.info(`Part 2: ${ribbonTotal}`); // 3842356
     
     }
     

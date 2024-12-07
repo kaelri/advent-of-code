@@ -14,14 +14,12 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/6
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines( this.input );
         
         // PART 1
     
         // Further split each row into an array of individual characters.
-        let rows = input.map(row => row.split(''));
+        let rows = lines.map(row => row.split(''));
 
         for (let y = 0; y < rows.length; y++) {
             const row = rows[y];

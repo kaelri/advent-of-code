@@ -4,9 +4,7 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/1
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines( this.input );
 
         // PART 1
 
@@ -14,8 +12,8 @@ class Solution extends SolutionBase {
         let columns = [ [], [] ];
 
         // Parse each line into two numbers and add them to their respective lists.
-        for (let i = 0; i < input.length; i++) {
-            const line = input[i];
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
 
             let values = line.split(/\s+/);
             for (let v = 0; v < values.length; v++) {
@@ -30,7 +28,7 @@ class Solution extends SolutionBase {
         }
 
         // Calculate the difference between each row and add them all up.
-        let diffs = input.map( ( line, l ) => {
+        let diffs = lines.map( ( line, l ) => {
             return Math.abs( columns[0][l] - columns[1][l] );
         }).reduce( (total, value) => total + value, 0);
 

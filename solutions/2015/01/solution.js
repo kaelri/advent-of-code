@@ -4,13 +4,10 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2015/day/1
-        let input = this.getInput();
-
         let floor    = 0;
         let basement = null;
 
-        let steps = input.split('').map(c => {
+        let steps = this.input.split('').map(c => {
             switch(c) {
                 case '(':
                     return 1;

@@ -11,17 +11,15 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2015/day/3
-        let input = this.getInput().split('');
-
         // PART 1
+        let steps = this.input.split('');
     
-        let numHouses = this.countHouses( input, 1 );
+        let numHouses = this.countHouses( steps, 1 );
         console.info(`Part 1: ${numHouses}`); // 2592
     
         // PART 2
     
-        numHouses = this.countHouses( input, 2 );
+        numHouses = this.countHouses( steps, 2 );
         console.info(`Part 2: ${numHouses}`); // 2360
     
     }

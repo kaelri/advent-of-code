@@ -4,12 +4,10 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/5
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines( this.input );
 
-        let rules = input.filter(line => line.match(/\d+\|\d+/) ).map(line => line.split('|'));
-        let books = input.filter(line => line.includes(',') ).map(line => line.split(','));
+        let rules = lines.filter(line => line.match(/\d+\|\d+/) ).map(line => line.split('|'));
+        let books = lines.filter(line => line.includes(',') ).map(line => line.split(','));
 
         let totalCorrect   = 0;
         let totalIncorrect = 0;

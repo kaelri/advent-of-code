@@ -16,12 +16,10 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/4
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines( this.input );
         
          // Further split each row into an array of individual characters.
-        this.grid = input.map(row => row.split(''));
+        this.grid = lines.map(row => row.split(''));
 
         let total = 0;
 

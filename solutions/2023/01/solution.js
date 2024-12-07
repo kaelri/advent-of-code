@@ -4,11 +4,9 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2023/day/1
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines(this.input);
 
-        let solution1 = input
+        let solution1 = lines
         .map( line => {
             line = line.replaceAll( /[^\d]/g, '' );
             let firstDigit = line.charAt(0);
@@ -40,7 +38,7 @@ class Solution extends SolutionBase {
             [ 'nine',  '9' ]
         ]);
 
-        let solution2 = input
+        let solution2 = lines
         .map( line => {
 
             let firstDigit, lastDigit;

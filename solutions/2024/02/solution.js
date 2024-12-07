@@ -4,14 +4,12 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/2
-        let input = this.getInput();
-        input = this.getLines(input);
+        let lines = this.getLines( this.input );
 
         // PART 1
 
         // Convert lines into reports. Parse the string into numbers and check whether the report is safe.
-        let reports = input.map( ( line, l ) => {
+        let reports = lines.map( ( line, l ) => {
 
             let report = {
                 values: [],

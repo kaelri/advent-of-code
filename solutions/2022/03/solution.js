@@ -4,13 +4,9 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2022/day/3
-        let input = this.getInput();
-
         const alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
-        const rucksacks = input
-        .split("\n")
+        const rucksacks = this.input.split("\n")
 
         const totalPriorities = rucksacks.map( rucksack => {
 

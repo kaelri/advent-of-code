@@ -4,11 +4,7 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2022/day/1
-        let input = this.getInput();
-        // Kind of want to replace this with an async fetch request straight from AoC, but #lazy.
-
-        const elves = input
+        const elves = this.input
             .split("\n\n") // Treat two line breaks as a separator between each "elf."
             .map( elf => { // Translate each elf’s entry from raw text to an object with actual numbers.
                 return elf
