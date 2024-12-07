@@ -4,9 +4,6 @@ class Solution extends SolutionBase {
 
     init() {
 
-        // Get the raw input from https://adventofcode.com/2024/day/N
-        let input = this.getInput();
-        
         // PART 1
     
         console.info(`Part 1: ${null}`); // 
