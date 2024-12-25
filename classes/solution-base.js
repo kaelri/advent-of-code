@@ -21,6 +21,39 @@ class SolutionBase {
 		return string.split("\n").filter( line => line.length > 0 );
 	}
 
+	getGrid( string ) {
+
+		let grid = new Map();
+
+		let lines = this.getLines( string );
+
+		let rows = lines.map(row => row.split(''));
+
+        for (let y = 0; y < rows.length; y++) {
+            const row = rows[y];
+
+            for (let x = 0; x < row.length; x++) {
+                const value = row[x];
+                let id = this.getGridID(x,y);
+
+                grid.set( id, value );
+
+            }
+
+        }
+
+		return grid;
+
+	}
+
+    getGridID( x, y ) {
+        return `${x},${y}`;
+    }
+
+    getGridCoords( id ) {
+        return id.split(',').map(Number);
+    }
+
 }
 
 module.exports = SolutionBase;
