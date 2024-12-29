@@ -21,7 +21,7 @@ class SolutionBase {
 		return string.split("\n").filter( line => line.length > 0 );
 	}
 
-	getGrid( string ) {
+	getGrid( string, valueFilter ) {
 
 		let grid = new Map();
 
@@ -33,8 +33,10 @@ class SolutionBase {
             const row = rows[y];
 
             for (let x = 0; x < row.length; x++) {
-                const value = row[x];
+                let value = row[x];
                 let id = this.getGridID(x,y);
+
+				if ( valueFilter ) value = valueFilter( value );
 
                 grid.set( id, value );
 
