@@ -1,4 +1,4 @@
-async function init() {
+(async function() {
 
 	let args        = process.argv.splice(2);
 	let argSolution = args[0] ?? null;
@@ -30,6 +30,4 @@ async function init() {
 	
 	instance.init();
 	
-}
-
-init();
+})();

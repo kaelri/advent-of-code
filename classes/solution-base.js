@@ -39,7 +39,7 @@ class SolutionBase {
                 let value = row[x];
                 let id = this.getGridID(x,y);
 
-				if ( valueFilter ) value = valueFilter( value );
+				if ( valueFilter ) value = valueFilter( value, id, x, y );
 
                 grid.set( id, value );
 
