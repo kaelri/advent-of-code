@@ -2,95 +2,139 @@ const SolutionBase = require('../../../classes/solution-base');
 
 class Solution extends SolutionBase {
 
-    transforms = new Map();
-
-    shareCompleted = 0;
-    timeElapsed    = 0;
+    solutions        = new Map();
+    evolutions       = new Map();
+    progress         = 0;
+    progressInterval = null;
 
     init() {
 
-        // PART 1
+        let stones = this.input.split(/\s+/).map(Number);
 
-        let stones = this.input.split(/\s+/);
+        // PART 1
+        this.progressStart();
+
         let total  = 0;
 
         for (let s = 0; s < stones.length; s++) {
-            total += this.blink( stones[s], 25, 100000000 / stones.length );
+            total += this.blink( stones[s], 25, 100 / stones.length );
         }
+
+        this.progressStop();
 
         console.info(`Part 1: ${total}`, this.getPerformance() ); // 220722
 
         // PART 2
 
-        // Reset progress.
+        this.progressStart();
+
+        // Reset.
         total = 0;
-        this.shareCompleted = 0;
     
         for (let s = 0; s < stones.length; s++) {
-            total += this.blink( stones[s], 75, 100000000 / stones.length );
+            total += this.blink( stones[s], 75, 100 / stones.length );
         }
+
+        this.progressStop();
 
         console.info(`Part 2: ${total}`, this.getPerformance() ); // 
     
     }
 
-    blink( stone, cycles, share ) {
+    blink( stone, cycles, progress ) {
 
-        let newStones = [];
-        let total     = 0;
+        let total = 0;
 
-        // See if we’ve saved the result of this evolution in the transforms map.
-        if ( this.transforms.has(stone) ) {
+        let mapID = `${stone}-${cycles}`;
 
-            newStones = this.transforms.get(stone);
+        if ( this.solutions.has(mapID) ) {
+
+            total = this.solutions.get(mapID);
+            this.progress += progress;
 
         } else {
+
+            let newStones = this.evolveStone(stone);
+    
+            cycles--;
+    
+            if ( cycles === 0 ) {
+                total = newStones.length;
+                this.progress += progress;
+            } else {
+                for (let s = 0; s < newStones.length; s++) {
+                    total += this.blink( newStones[s], cycles, progress / newStones.length );
+                }
+            }
+    
+            this.solutions.set( mapID, total );
+    
+        }
+
+        return total;
+
+    }
+
+    evolveStone(stone) {
+
+        let newStones;
+        
+        // See if we’ve saved the result of this evolution in the evolutions map.
+        if ( this.evolutions.has(stone) ) {
+
+            newStones = this.evolutions.get(stone);
+
+        } else {
+
+            newStones = [];
 
             // Convert the current stone into the new stone(s) that it produces.
             loopNewStones:
             while ( true ) {
 
                 // Rule 1: if stone value is 0, it becomes 1.
-                if ( stone === '0' ) {
-                    newStones.push('1');
+                if ( stone === 0 ) {
+                    newStones.push(1);
                     break loopNewStones;
                 }
 
                 // Rule 2: if the stone value has an even number of digits, split them in half and make two new stones.
-                if ( stone.length % 2 === 0 ) {
-                    newStones.push( stone.substr(0, stone.length / 2) );
-                    newStones.push( stone.substr(stone.length / 2).replace(/^00+/, '0').replace(/^0([^0])/, '$1') );
+                let digits     = String(stone);
+                let halfDigits = digits.length / 2;
+                if ( digits.length % 2 === 0 ) {
+                    newStones.push( Number( digits.substring( 0, halfDigits ) ) );
+                    newStones.push( Number( digits.substring( halfDigits    ) ) );
                     break loopNewStones;
                 }
 
                 // Rule 3 (default): multiply the stone value by 2024.
-                newStones.push( String( Number(stone) * 2024 ) );
+                newStones.push( stone * 2024 );
                 break loopNewStones;
                 
             }
 
-            this.transforms.set( stone, newStones );
+            this.evolutions.set( stone, newStones );
 
         }
 
-        cycles--;
+        return newStones;
 
-        if ( cycles === 0 ) {
-            total = newStones.length;
-            this.shareCompleted += share;
-        } else {
-            for (let s = 0; s < newStones.length; s++) {
-                total += this.blink( newStones[s], cycles, share / newStones.length );
-            }
-        }
+    }
 
-        if ( performance.now() - this.timeElapsed > 5000 ) {
-            this.timeElapsed = performance.now();
-            console.info(`${Math.floor(this.shareCompleted/1000000)}%`, this.getPerformance() );
-        }
+    progressStart() {
 
-        return total;
+        this.progress = 0;
 
+        this.progressInterval = setInterval(() => {
+            console.info(`${( Math.round(this.progress * 100 ) / 100 )}%`, this.getPerformance() );
+        }, 5000);
+
+    }
+
+    progressStop() {
+
+        clearInterval(this.progressInterval);
+        
     }
 
 }
