@@ -1,6 +1,6 @@
-const SolutionBase = require('../../../classes/solution-base');
+import SolutionBase from '../../../classes/solution-base.js';
 
-class Solution extends SolutionBase {
+export class Solution extends SolutionBase {
 
     init() {
 
@@ -47,5 +47,3 @@ class Solution extends SolutionBase {
     }
     
 }
-
-module.exports = Solution;

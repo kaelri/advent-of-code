@@ -1,6 +1,6 @@
-const SolutionBase = require('../../../classes/solution-base');
+import SolutionBase from '../../../classes/solution-base.js';
 
-class Solution extends SolutionBase {
+export class Solution extends SolutionBase {
 
     directions = {
         '^': { dy:  1, dx:  0 },
@@ -57,5 +57,3 @@ class Solution extends SolutionBase {
     }
     
 }
-
-module.exports = Solution;
