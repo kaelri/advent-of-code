@@ -16,7 +16,7 @@ class Solution extends SolutionBase {
             total += this.blink( stones[s], 25, 100 / stones.length );
         }
 
-        console.info(`Part 1: ${total}`, this.getPerformance() ); // 220722
+        console.info(`Part 1: ${total}` ); // 220722
 
         // PART 2
 
@@ -26,7 +26,7 @@ class Solution extends SolutionBase {
             total += this.blink( stones[s], 75, 100 / stones.length );
         }
 
-        console.info(`Part 2: ${total}`, this.getPerformance() ); // 
+        console.info(`Part 2: ${total}` ); // 261952051690787
     
     }
 
@@ -34,7 +34,7 @@ class Solution extends SolutionBase {
 
         let total = 0;
 
-        let mapID = `${stone}-${cycles}`;
+        let mapID = `${stone},${cycles}`;
 
         if ( this.solutions.has(mapID) ) {
 
