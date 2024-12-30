@@ -56,6 +56,10 @@ class SolutionBase {
         return id.split(',').map(Number);
     }
 
+	getPerformance() {
+		return String( '• ' + Math.floor(performance.now() / 1000) + 's • ' + Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' );
+	}
+
 }
 
 module.exports = SolutionBase;

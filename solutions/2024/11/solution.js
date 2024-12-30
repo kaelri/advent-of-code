@@ -2,97 +2,97 @@ const SolutionBase = require('../../../classes/solution-base');
 
 class Solution extends SolutionBase {
 
+    transforms = new Map();
+
+    shareCompleted = 0;
+    timeElapsed    = 0;
+
     init() {
 
         // PART 1
 
-        let stones = new Map();
+        let stones = this.input.split(/\s+/);
+        let total  = 0;
 
-        let values = this.input.split(/\s+/).map(Number);
-        
-        for (let v = 0; v < values.length; v++) {
-            this.incrementMap( stones, values[v] );
-        }
-        
-        for (let i = 0; i < 25; i++) {
-            stones = this.blink( stones );
-            console.info(`Blink ${i+1} --> ${this.getMapTotal(stones)} stones `, Math.floor(performance.now()) + ' ms', Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' );
+        for (let s = 0; s < stones.length; s++) {
+            total += this.blink( stones[s], 25, 100000000 / stones.length );
         }
 
-        let total = this.getMapTotal( stones );
-    
-        console.info(`Part 1: ${total}`, Math.floor(performance.now()) + ' ms', Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' ); // 220722
+        console.info(`Part 1: ${total}`, this.getPerformance() ); // 220722
 
         // PART 2
+
+        // Reset progress.
+        total = 0;
+        this.shareCompleted = 0;
     
-        // Do it 50 more times (for a total of 75).
-        for (let i = 25; i < 75; i++) {
-            stones = this.blink( stones );
-            console.info(`Blink ${i+1} --> ${this.getMapTotal(stones)} stones `, Math.floor(performance.now()) + ' ms', Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' );
+        for (let s = 0; s < stones.length; s++) {
+            total += this.blink( stones[s], 75, 100000000 / stones.length );
         }
-    
-        console.info(`Part 2: ${stones.length}`, Math.floor(performance.now()) + ' ms', Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' ); // 
+
+        console.info(`Part 2: ${total}`, this.getPerformance() ); // 
     
     }
 
-    blink( stones ) {
+    blink( stone, cycles, share ) {
 
-        let newStones = new Map();
+        let newStones = [];
+        let total     = 0;
 
-        stones.forEach( (count, value) => {
+        // See if we’ve saved the result of this evolution in the transforms map.
+        if ( this.transforms.has(stone) ) {
 
-            countLoop:
-            for (let i = 0; i < count; i++) {
-                
+            newStones = this.transforms.get(stone);
+
+        } else {
+
+            // Convert the current stone into the new stone(s) that it produces.
+            loopNewStones:
+            while ( true ) {
+
                 // Rule 1: if stone value is 0, it becomes 1.
-                if ( value === 0 ) {
-                    this.incrementMap( newStones, 1 );
-                    continue countLoop;
+                if ( stone === '0' ) {
+                    newStones.push('1');
+                    break loopNewStones;
                 }
-    
+
                 // Rule 2: if the stone value has an even number of digits, split them in half and make two new stones.
-                let digits = String(value).split('');
-                
-                if ( digits.length % 2 === 0 ) {
-                    let leftStone = Number( digits.slice(0, digits.length / 2).join('') );
-                    let rightStone = Number( digits.slice(digits.length / 2).join('') );
-                    this.incrementMap( newStones, leftStone );
-                    this.incrementMap( newStones, rightStone );
-                    continue countLoop;
+                if ( stone.length % 2 === 0 ) {
+                    newStones.push( stone.substr(0, stone.length / 2) );
+                    newStones.push( stone.substr(stone.length / 2).replace(/^00+/, '0').replace(/^0([^0])/, '$1') );
+                    break loopNewStones;
                 }
-    
+
                 // Rule 3 (default): multiply the stone value by 2024.
-                this.incrementMap( newStones, value * 2024 );
-                continue countLoop;
+                newStones.push( String( Number(stone) * 2024 ) );
+                break loopNewStones;
                 
             }
-    
-        });
 
-        return newStones;
+            this.transforms.set( stone, newStones );
 
-    }
-
-    incrementMap( map, key ) {
-        if ( !map.has(key) ) {
-            map.set( key, 1 );
-        } else {
-            map.set( key, map.get(key) + 1 );
         }
-    }
 
-    getMapTotal( map ) {
+        cycles--;
 
-        let total = 0;
+        if ( cycles === 0 ) {
+            total = newStones.length;
+            this.shareCompleted += share;
+        } else {
+            for (let s = 0; s < newStones.length; s++) {
+                total += this.blink( newStones[s], cycles, share / newStones.length );
+            }
+        }
 
-        map.forEach( (count, value) => {
-            total += count;
-        });
+        if ( performance.now() - this.timeElapsed > 5000 ) {
+            this.timeElapsed = performance.now();
+            console.info(`${Math.floor(this.shareCompleted/1000000)}%`, this.getPerformance() );
+        }
 
         return total;
 
     }
-    
+
 }
 
 module.exports = Solution;
