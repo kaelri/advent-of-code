@@ -6,6 +6,9 @@ class SolutionBase {
 	inputID = '';
 	input   = null;
 
+    progress         = 0;
+    progressInterval = null;
+
 	constructor( path, inputID ) {
 		this.path    = path;
 		this.inputID = inputID;
@@ -59,6 +62,22 @@ class SolutionBase {
 	getPerformance() {
 		return String( '• ' + Math.floor(performance.now() / 1000) + 's • ' + Math.floor(process.memoryUsage().heapUsed / 1024 / 1024 ) + ' MB' );
 	}
+
+    progressStart() {
+
+        this.progress = 0;
+
+        this.progressInterval = setInterval(() => {
+            console.info(`${( Math.round(this.progress * 100 ) / 100 )}%`, this.getPerformance() );
+        }, 5000);
+
+    }
+
+    progressStop() {
+
+        clearInterval(this.progressInterval);
+        
+    }
 
 }
 

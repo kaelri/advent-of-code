@@ -2,40 +2,29 @@ const SolutionBase = require('../../../classes/solution-base');
 
 class Solution extends SolutionBase {
 
-    solutions        = new Map();
-    evolutions       = new Map();
-    progress         = 0;
-    progressInterval = null;
+    solutions  = new Map();
+    evolutions = new Map();
 
     init() {
 
         let stones = this.input.split(/\s+/).map(Number);
 
         // PART 1
-        this.progressStart();
-
         let total  = 0;
 
         for (let s = 0; s < stones.length; s++) {
             total += this.blink( stones[s], 25, 100 / stones.length );
         }
 
-        this.progressStop();
-
         console.info(`Part 1: ${total}`, this.getPerformance() ); // 220722
 
         // PART 2
 
-        this.progressStart();
-
-        // Reset.
         total = 0;
     
         for (let s = 0; s < stones.length; s++) {
             total += this.blink( stones[s], 75, 100 / stones.length );
         }
-
-        this.progressStop();
 
         console.info(`Part 2: ${total}`, this.getPerformance() ); // 
     
@@ -119,22 +108,6 @@ class Solution extends SolutionBase {
 
         return newStones;
 
-    }
-
-    progressStart() {
-
-        this.progress = 0;
-
-        this.progressInterval = setInterval(() => {
-            console.info(`${( Math.round(this.progress * 100 ) / 100 )}%`, this.getPerformance() );
-        }, 5000);
-
-    }
-
-    progressStop() {
-
-        clearInterval(this.progressInterval);
-        
     }
 
 }
