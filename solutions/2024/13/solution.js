@@ -38,49 +38,51 @@ export class Solution extends SolutionBase {
 
     solveGame( g, prizeModifier = 0 ) {
 
+        const game = this.games[g];
+        let aX     = game.aX;
+        let aY     = game.aY;
+        let bX     = game.bX;
+        let bY     = game.bY;
+        let prizeX = game.prizeX + prizeModifier;
+        let prizeY = game.prizeY + prizeModifier;
+
         // ( a * aX ) + ( b * bX ) = prizeX
         // ( a * aY ) + ( b * bY ) = prizeY
         // 3a + b = cost
-
-        const game = this.games[g];
 
         let solution = {
             a: 0,
             b: 0,
         }
 
-        let prizeX = game.prizeX + prizeModifier;
-        let prizeY = game.prizeY + prizeModifier;
+        // b = 
+        // b = ( prizeY - ( a * aY ) ) / bY
+        // ( prizeX - ( a * aX ) ) / bX = ( prizeY - ( a * aY ) ) / bY
+        // bY * ( prizeX - ( a * aX ) ) = bX * ( prizeY - ( a * aY ) )
 
-        let aMax = Math.min( Math.floor(prizeX / game.aX), Math.floor(prizeY / game.aY) );
-        let bMax = Math.min( Math.floor(prizeX / game.bX), Math.floor(prizeY / game.bY) );
 
-        loopA:
-        for (let a = 0; a <= aMax; a++) {
 
-            let remainderX = prizeX - a * game.aX;
-            let remainderY = prizeY - a * game.aY;
+        /*
+        let aMax = Math.min( Math.floor(prizeX / aX), Math.floor(prizeY / aY) );
+        let bMax = Math.min( Math.floor(prizeX / bX), Math.floor(prizeY / bY) );
 
-            loopB:
-            for (let b = 0; b <= bMax; b++) {
+        loopB:
+        for (let b = bMax; b >= 0 ; b--) {
+            
+            let a1 = ( prizeX - ( b * bX ) ) / aX;
+            let a2 = ( prizeY - ( b * bY ) ) / aY;
 
-                let resultX = a * game.aX + b * game.bX;
-                let resultY = a * game.aY + b * game.bY;
-
-                if ( resultX === prizeX && resultY === prizeY ) {
-                    solution.a = a;
-                    solution.b = b;
-                    break loopA;
-                }
-
-                // If we go past the prize, break this loop; it will just keep increasing.
-                if ( resultX > prizeX || resultY > prizeY ) break loopB;
-
+            if ( Number.isInteger(a1) && a1 === a2 ) {
+                solution.a = a1;
+                solution.b = b;
+                break loopB;
             }
-
+            
         }
+        */
 
         game.solution = solution;
+        console.log( g, solution );
 
     }
 
