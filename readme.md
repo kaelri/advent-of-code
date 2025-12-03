@@ -1,15 +1,17 @@
-My solutions for [Advent of Code](https://adventofcode.com/). Written for [Node.js](https://nodejs.org/en).
+My solutions for [Advent of Code](https://adventofcode.com/). Written for [Python](https://www.python.org/).
 
-To run a solution, e.g. Day 1:
+To install, using Python 3.x on macOS via Homebrew:
 
 ```shell
-npm run solve 1
+python -m venv .venv
+# python -m pip install requests
 ```
 
-The runner defaults to the most recent year (`2024`). To run a previous year’s solution, e.g. 2022 Day 3:
+To run:
 
 ```shell
-npm run solve 2022-3
+source .venv/bin/activate
+python -m solve 2025 1
 ```
 
 Included on [Bogdanp/awesome-advent-of-code](https://github.com/Bogdanp/awesome-advent-of-code) since 2022!
