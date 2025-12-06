@@ -1,12 +1,12 @@
 import os
 from functools import reduce
 
-def init( module_path ):
+def init( module_path, inputID ):
 
 	invalid_ranges_part_1 = []
 	invalid_ranges_part_2 = []
 
-	with open( os.path.join(module_path, 'input.txt'), 'r') as f:
+	with open( os.path.join(module_path, f'{inputID}.txt'), 'r') as f:
 		input = f.read().strip().split(',')
 
 	for id_range in input:
@@ -19,29 +19,23 @@ def init( module_path ):
 			
 			id = str(id)
 
-			id_is_invalid = False # default
-
 			max_pattern_length = int( len(id) // 2 )
 
 			for pattern_length in range( max_pattern_length, 0, -1 ):
 
-				repetitions_needed = len(id) / pattern_length
-				if ( repetitions_needed % 1 != 0 ): continue
+				repetitions = len(id) / pattern_length
+				if ( repetitions % 1 != 0 ): continue
 
-				pattern = id[0:pattern_length]
+				pattern = id[:pattern_length]
 
-				if ( id == pattern * int(repetitions_needed) ):
+				if ( id == pattern * int(repetitions) ):
 
-					id_is_invalid = True
-					
-					if ( repetitions_needed == 2 ):
+					if ( repetitions == 2 ):
 						invalid_ranges_part_1.append( int(id) )
 
 					invalid_ranges_part_2.append( int(id) )
 
 					break
-
-			if id_is_invalid: continue
 
 	invalid_sum_part_1 = reduce( lambda a, b: a + b, invalid_ranges_part_1, 0 )
 

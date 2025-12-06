@@ -1,13 +1,13 @@
 import os
 import re
 
-def init( module_path ):
+def init( module_path, inputID ):
 
 	dialPosition     = 50
 	totalZeroesEnd   = 0
 	totalZeroesClick = 0
 
-	with open( os.path.join(module_path, 'input.txt'), 'r') as f:
+	with open( os.path.join(module_path, f'{inputID}.txt'), 'r') as f:
 		input = f.read().strip().split('\n')
 
 	for line in input:

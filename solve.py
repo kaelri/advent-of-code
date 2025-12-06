@@ -1,31 +1,20 @@
 import os
 import sys
+from importlib.machinery import SourceFileLoader
 
 def init():
 
-	if len(sys.argv) >= 3:
-		yearID = sys.argv[1]
-		dayID  = sys.argv[2]
-	elif len (sys.argv) >= 2:
-		yearID = '2025'
-		dayID  = sys.argv[1]
-	else:
-		sys.stderr.write('Please provide a solution number, e.g. `python -m solve 5` or `python -m solve 2024 3`.\n')
-		sys.exit()
+	yearID  = sys.argv[1]          if len(sys.argv) >= 2 else '2025'
+	dayID   = sys.argv[2].zfill(2) if len(sys.argv) >= 3 else '01'
+	inputID = sys.argv[3]          if len(sys.argv) >= 4 else 'input'
 
-	if (len(dayID) == 1):
-		dayID = dayID.zfill(2)
-
-	from importlib.machinery import SourceFileLoader
-	module_path = os.path.join('solutions', f'y{yearID}', f'd{dayID}')
-	module_file = os.path.join('solutions', f'y{yearID}', f'd{dayID}', 'solution.py')
+	module_path = os.path.join( 'solutions', f'y{yearID}', f'd{dayID}' )
+	module_file = os.path.join( module_path, 'solution.py' )
 	solution = SourceFileLoader('solution', module_file ).load_module()
 
-	sys.stdout.write( f'{yearID} DAY {dayID}\n' );
-	sys.stdout.write( '-----------\n' );
+	title = f'{yearID} » DAY {dayID} » {inputID}'
+	sys.stdout.write( title + '\n' + ( '-' * len(title) ) + '\n' );
 
-	solution.init( module_path )
-
-	return
+	solution.init( module_path, inputID )
 
 init()
